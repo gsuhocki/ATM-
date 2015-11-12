@@ -14,8 +14,9 @@ public class AtmTest {
         Atm.Account account1 = atm.getAccount1();
         Atm.Transaction transaction1 = atm.getTransaction1();
         atm.withDrawl(20);
-        assertEquals("The effect the with drawl has on the balance", 480, account1.getBalance());
-        assertEquals("The effect the with drawl has on the balance","banans",transaction1.getRecord());
+        assertEquals("The effect the withdrawl has on the balance", 4500, account1.getBalance());
+        assertEquals("The effect the withdrawl has on the balance",500,transaction1.getRecord());
+
     }
 
 }

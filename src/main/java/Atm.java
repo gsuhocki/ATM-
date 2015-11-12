@@ -53,6 +53,15 @@ public class Atm {
             this.printReceipt();
         }
 
+    public void deposit(int amount) {
+        int balance = account1.getBalance();
+        balance = balance + amount;
+        account1.setBalance(balance);
+
+        transaction1.setTransaction("Deposit of " + amount + "\n" + "Your balance is " + balance);
+        this.printReceipt();
+    }
+
         public void showBalance() {
             account1.setBalance(account1.balance);
             account1.getBalance();
@@ -133,36 +142,82 @@ public class Atm {
         String nextTransaction;
         boolean YES;
         boolean yesTransaction=true;
+        String withdrawl;
 
         //Run while loop if user requests another transaction
 
         while (yesTransaction = true) {
             System.out.println("Your balance is " + atm.account1.getBalance());
-            System.out.println("Please enter the amount you would like to withdrawl... ");
-            amt = user.nextLine();
-            int newAmt = Integer.parseInt(amt);
-            newBalance = atm.account1.getBalance() - newAmt;
+            System.out.println("Would you like to deposit or withdrawl (please type deposit/withdrawl)?");
+            withdrawl = user.nextLine();
+            if(withdrawl.equals("withdrawl")) {
 
-            //Set balance to current balance if transaction > 1
-            atm.account1.setBalance(newBalance);
-            System.out.println("You have entered $" + amt + ". Is this correct?");
-            decision = user.nextLine();
-            if (decision.equals("yes")) {
-                System.out.println("Withdrawl of " + (amt) + ". Your balance is " + newBalance);
-            } else {
-                System.out.println("Please enter correct amount");
+                //Complete the withdrawl transaction and give the balance when complete.
 
+                System.out.println("Please enter the amount you would like to withdrawl... ");
+                amt = user.nextLine();
+                int newAmt = Integer.parseInt(amt);
+                newBalance = atm.account1.getBalance() - newAmt;
+
+                //Set balance to current balance if transaction > 1
+                atm.account1.setBalance(newBalance);
+                System.out.println("You have entered $" + amt + ". Is this correct (yes/no)?");
+                decision = user.nextLine();
+                if (decision.equals("yes")) {
+
+                    System.out.println("Withdrawl of " + (amt) + ". Your balance is " + newBalance);
+
+                } else {
+                    System.out.println("Please enter correct amount");
+
+                }
+
+                if (newBalance<0){
+                    System.out.println("Your account is overdrawn.  Please speak with the bank manager.");
+                }
             }
+
+            //Complete the deposit transaction and give the balance when complete.
+
+            if(withdrawl.equals("deposit")) {
+
+                //Complete the deposit transaction and give the balance when complete.
+
+                System.out.println("Please enter the amount you would like to deposit... ");
+                amt = user.nextLine();
+                int newAmt = Integer.parseInt(amt);
+                newBalance = atm.account1.getBalance() + newAmt;
+
+                //Set balance to current balance if transaction > 1
+                atm.account1.setBalance(newBalance);
+                System.out.println("You have entered $" + amt + ". Is this correct (yes/no)?");
+                decision = user.nextLine();
+                if (decision.equals("yes")) {
+
+                    System.out.println("Deposit of " + (amt) + ". Your balance is " + newBalance);
+
+                } else {
+                    System.out.println("Please enter correct amount");
+
+                }
+            }
+
+
+            //Transaction are complete - Loop again if user would like another transaction.
             System.out.println("Would you like to make another transaction?");
             nextTransaction = user.nextLine();
+
             if (nextTransaction.equals("yes")) {
                 yesTransaction = true;
             } else {
                 yesTransaction = false;
                 System.out.println("Thank you for your business.");
+                break;
             }
 
         }
+
+
     }
 }
 
